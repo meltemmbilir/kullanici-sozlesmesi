@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Support - MyDeviceTracker</title>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0e0f11;
+      --surface: #16181c;
+      --border: #2a2d35;
+      --text: #e8eaf0;
+      --muted: #7a7f94;
+      --accent: #4f8ef7;
+      --accent-dim: rgba(79,142,247,0.12);
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.7;
+    }
+
+    /* NAV */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 48px;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: rgba(14,15,17,0.92);
+      backdrop-filter: blur(12px);
+      z-index: 100;
+    }
+
+    .logo {
+      font-family: 'Sora', sans-serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--text);
+      letter-spacing: -0.02em;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .logo-icon { width: 36px; height: 36px; flex-shrink: 0; }
+
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a {
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    /* HERO */
+    .hero {
+      padding: 72px 48px 48px;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    .hero h1 {
+      font-family: 'Sora', sans-serif;
+      font-size: clamp(2.8rem, 6vw, 4.5rem);
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      background: linear-gradient(135deg, #e8eaf0 40%, #7a7f94);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 12px;
+    }
+
+    .hero-sub {
+      font-size: 1rem;
+      color: var(--muted);
+      max-width: 480px;
+      margin-top: 12px;
+    }
+
+    /* CONTENT */
+    .content {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 48px 80px;
+    }
+
+    /* SECTION TITLE */
+    .section-title {
+      font-family: 'Sora', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--text);
+      margin: 48px 0 20px;
+      letter-spacing: -0.02em;
+    }
+
+    /* FAQ */
+    .faq-item {
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      margin-bottom: 10px;
+      overflow: hidden;
+      background: var(--surface);
+      transition: border-color 0.2s;
+    }
+
+    .faq-item.open { border-color: rgba(79,142,247,0.4); }
+
+    .faq-q {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 24px;
+      background: none;
+      border: none;
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 500;
+      cursor: pointer;
+      text-align: left;
+      gap: 16px;
+    }
+
+    .faq-q:hover { color: #fff; }
+
+    .faq-icon {
+      flex-shrink: 0;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--accent-dim);
+      border: 1px solid rgba(79,142,247,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.25s, background 0.2s;
+    }
+
+    .faq-item.open .faq-icon {
+      transform: rotate(45deg);
+      background: var(--accent);
+    }
+
+    .faq-icon svg { width: 12px; height: 12px; }
+
+    .faq-a {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease, padding 0.2s;
+    }
+
+    .faq-item.open .faq-a { max-height: 400px; }
+
+    .faq-a-inner {
+      padding: 0 24px 20px;
+      font-size: 0.9rem;
+      color: #9aa0b8;
+      line-height: 1.75;
+    }
+
+    /* TROUBLESHOOT */
+    .trouble-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .trouble-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px 22px;
+    }
+
+    .trouble-card h3 {
+      font-family: 'Sora', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    .trouble-card p {
+      font-size: 0.87rem;
+      color: #9aa0b8;
+      line-height: 1.65;
+    }
+
+    /* CONTACT FORM */
+    .contact-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 36px;
+      margin-top: 48px;
+    }
+
+    .contact-box h2 {
+      font-family: 'Sora', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+      letter-spacing: -0.02em;
+    }
+
+    .contact-box p {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-bottom: 28px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 14px;
+    }
+
+    .form-group label {
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--muted);
+      letter-spacing: 0.02em;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      background: #0e0f11;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 14px;
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.2s;
+      width: 100%;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--accent);
+    }
+
+    .form-group select option { background: #16181c; }
+
+    .form-group textarea { resize: vertical; min-height: 110px; }
+
+    .submit-btn {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      padding: 13px 28px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.15s;
+      margin-top: 6px;
+    }
+
+    .submit-btn:hover { opacity: 0.88; transform: translateY(-1px); }
+    .submit-btn:active { transform: translateY(0); }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 28px 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--muted);
+      font-size: 0.83rem;
+    }
+
+    footer a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
+    footer a:hover { color: var(--text); }
+    .footer-links { display: flex; gap: 24px; }
+
+    @media (max-width: 640px) {
+      nav { padding: 16px 20px; }
+      .hero { padding: 48px 20px 32px; }
+      .content { padding: 0 20px 60px; }
+      .form-row { grid-template-columns: 1fr; }
+      .trouble-grid { grid-template-columns: 1fr; }
+      footer { padding: 24px 20px; flex-direction: column; gap: 12px; }
+      .contact-box { padding: 24px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="logo">
+      <svg class="logo-icon" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="bgG" x1="0" y1="0" x2="72" y2="72" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#4A9FF5"/>
+            <stop offset="100%" stop-color="#1A5FD4"/>
+          </linearGradient>
+        </defs>
+        <rect width="72" height="72" rx="16" fill="url(#bgG)"/>
+        <!-- Outer arc -->
+        <path d="M18 46 A20 20 0 0 1 54 46" stroke="white" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+        <!-- Middle arc -->
+        <path d="M23 46 A14 14 0 0 1 49 46" stroke="white" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+        <!-- Inner arc -->
+        <path d="M28.5 46 A8 8 0 0 1 43.5 46" stroke="white" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+        <!-- Center dot -->
+        <circle cx="36" cy="46" r="4.5" fill="white"/>
+      </svg>
+      MyDeviceTracker
+    </a>
+    <ul class="nav-links">
+      <li><a href="support.html">Support</a></li>
+    </ul>
+  </nav>
+
+  <div class="hero">
+    <h1>Support.</h1>
+    <p style="font-family:'Sora',sans-serif; font-size:1.5rem; font-weight:600; color:#c5cce8; margin-top:8px; letter-spacing:-0.02em;">Get in touch.</p>
+    <p class="hero-sub">We're here to help. Find answers, explore FAQs, or contact our support team for quick assistance.</p>
+  </div>
+
+  <div class="content">
+
+    <!-- FAQ -->
+    <div class="section-title">Frequently Asked Questions</div>
+
+    <div class="faq-item" id="faq1">
+      <button class="faq-q" onclick="toggleFaq('faq1')">
+        What are my subscription conditions?
+        <span class="faq-icon">
+          <svg viewBox="0 0 12 12" fill="none"><line x1="6" y1="1" x2="6" y2="11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><line x1="1" y1="6" x2="11" y2="6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </span>
+      </button>
+      <div class="faq-a">
+        <div class="faq-a-inner">Your subscription automatically renews unless cancelled at least 24 hours before the end of the current billing period. You can manage or cancel your subscription at any time through your device's account settings (App Store or Google Play). No refunds are provided for partial subscription periods.</div>
+      </div>
+    </div>
+
+    <div class="faq-item" id="faq2">
+      <button class="faq-q" onclick="toggleFaq('faq2')">
+        What features does MyDeviceTracker offer?
+        <span class="faq-icon">
+          <svg viewBox="0 0 12 12" fill="none"><line x1="6" y1="1" x2="6" y2="11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><line x1="1" y1="6" x2="11" y2="6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </span>
+      </button>
+      <div class="faq-a">
+        <div class="faq-a-inner">MyDeviceTracker lets you locate and track your Bluetooth devices in real time. Features include live signal strength tracking, last seen location, sound alerts to find nearby devices, and a history of device locations. Premium users get access to extended location history and unlimited device tracking.</div>
+      </div>
+    </div>
+
+    <div class="faq-item" id="faq3">
+      <button class="faq-q" onclick="toggleFaq('faq3')">
+        How can I use MyDeviceTracker on multiple devices?
+        <span class="faq-icon">
+          <svg viewBox="0 0 12 12" fill="none"><line x1="6" y1="1" x2="6" y2="11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><line x1="1" y1="6" x2="11" y2="6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </span>
+      </button>
+      <div class="faq-a">
+        <div class="faq-a-inner">Simply sign in with the same account on any of your devices. Your tracked items, settings, and subscription will sync automatically across all your devices.</div>
+      </div>
+    </div>
+
+    <div class="faq-item" id="faq4">
+      <button class="faq-q" onclick="toggleFaq('faq4')">
+        How do I cancel my subscription?
+        <span class="faq-icon">
+          <svg viewBox="0 0 12 12" fill="none"><line x1="6" y1="1" x2="6" y2="11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><line x1="1" y1="6" x2="11" y2="6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </span>
+      </button>
+      <div class="faq-a">
+        <div class="faq-a-inner">
+          On iPhone/iPad: Go to Settings → Your Name → Subscriptions → MyDeviceTracker → Cancel Subscription.<br><br>
+          On Android: Open Google Play → Menu → Subscriptions → MyDeviceTracker → Cancel.<br><br>
+          Cancellation takes effect at the end of your current billing period.
+        </div>
+      </div>
+    </div>
+
+    <!-- TROUBLESHOOTING -->
+    <div class="section-title">Troubleshooting</div>
+    <p style="color:var(--muted); font-size:0.9rem; margin-bottom:20px;">Experiencing issues with your app? Here are some quick steps to consider.</p>
+
+    <div class="trouble-grid">
+      <div class="trouble-card">
+        <h3>📡 Device Not Found</h3>
+        <p>Make sure Bluetooth is enabled on your phone and the target device is powered on and within range. Try refreshing the scan.</p>
+      </div>
+      <div class="trouble-card">
+        <h3>🔄 App Not Responding</h3>
+        <p>Force-close the app and reopen it. If the issue persists, try restarting your phone or reinstalling the app.</p>
+      </div>
+      <div class="trouble-card">
+        <h3>📍 Location Not Updating</h3>
+        <p>Ensure location permissions are set to "Always" in your device settings for MyDeviceTracker to work properly in the background.</p>
+      </div>
+      <div class="trouble-card">
+        <h3>🔔 Notifications Not Working</h3>
+        <p>Check that notifications are enabled for MyDeviceTracker in your device's notification settings and that Do Not Disturb is off.</p>
+      </div>
+    </div>
+
+    <!-- CONTACT FORM -->
+    <div class="contact-box">
+      <h2>Still need help?</h2>
+      <p>Our support team is happy to assist you personally.</p>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Name</label>
+          <input type="text" placeholder="Your name">
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" placeholder="your@email.com">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Subject</label>
+          <input type="text" placeholder="Brief subject">
+        </div>
+        <div class="form-group">
+          <label>Reason</label>
+          <select>
+            <option value="" disabled selected>Select…</option>
+            <option>Subscription</option>
+            <option>Performance</option>
+            <option>User Interface</option>
+            <option>Device Tracking</option>
+            <option>Other</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Message</label>
+        <textarea placeholder="Describe your issue in detail…"></textarea>
+      </div>
+
+      <button class="submit-btn" onclick="handleSubmit()">Send message</button>
+    </div>
+
+  </div>
+
+  <footer>
+    <span>© 2025 MyDeviceTracker</span>
+    <div class="footer-links">
+      <a href="index.html#privacy">Privacy</a>
+      <a href="index.html#terms">Terms</a>
+      <a href="support.html">Support</a>
+    </div>
+  </footer>
+
+  <script>
+    function toggleFaq(id) {
+      const item = document.getElementById(id);
+      item.classList.toggle('open');
+    }
+
+    function handleSubmit() {
+      const btn = document.querySelector('.submit-btn');
+      btn.textContent = 'Sending…';
+      btn.disabled = true;
+      setTimeout(() => {
+        btn.textContent = '✓ Message sent!';
+        btn.style.background = '#22c55e';
+      }, 1200);
+    }
+  </script>
+
+</body>
+</html>
