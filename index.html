@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Legal - MyDeviceTracker</title>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0e0f11;
+      --surface: #16181c;
+      --border: #2a2d35;
+      --text: #e8eaf0;
+      --muted: #7a7f94;
+      --accent: #4f8ef7;
+      --accent-dim: rgba(79,142,247,0.12);
+      --pill-active-bg: #4f8ef7;
+      --pill-active-text: #fff;
+      --pill-inactive-bg: #1e2128;
+      --pill-inactive-text: #9aa0b8;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.7;
+    }
+
+    /* NAV */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 48px;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: rgba(14,15,17,0.92);
+      backdrop-filter: blur(12px);
+      z-index: 100;
+    }
+
+    .logo {
+      font-family: 'Sora', sans-serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--text);
+      letter-spacing: -0.02em;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .logo-icon {
+      width: 36px;
+      height: 36px;
+      flex-shrink: 0;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    /* HERO */
+    .hero {
+      padding: 72px 48px 48px;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    .hero h1 {
+      font-family: 'Sora', sans-serif;
+      font-size: clamp(2.8rem, 6vw, 4.5rem);
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      margin-bottom: 36px;
+      background: linear-gradient(135deg, #e8eaf0 40%, #7a7f94);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* TABS */
+    .tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 52px;
+    }
+
+    .tab-btn {
+      padding: 10px 22px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      background: var(--pill-inactive-bg);
+      color: var(--pill-inactive-text);
+    }
+
+    .tab-btn.active {
+      background: var(--pill-active-bg);
+      color: var(--pill-active-text);
+      border-color: var(--pill-active-bg);
+    }
+
+    .tab-btn:not(.active):hover {
+      background: #252830;
+      color: var(--text);
+    }
+
+    /* CONTENT */
+    .content {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 48px 80px;
+    }
+
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    .section {
+      margin-bottom: 40px;
+      padding: 32px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+    }
+
+    .section h2 {
+      font-family: 'Sora', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--accent);
+      margin-bottom: 14px;
+      letter-spacing: -0.01em;
+    }
+
+    .section p {
+      font-size: 0.93rem;
+      color: #b0b5cc;
+      line-height: 1.8;
+    }
+
+    .section p + p { margin-top: 12px; }
+
+    .intro-block {
+      background: var(--accent-dim);
+      border: 1px solid rgba(79,142,247,0.2);
+      border-radius: 16px;
+      padding: 32px;
+      margin-bottom: 40px;
+    }
+
+    .intro-block p {
+      font-size: 0.95rem;
+      color: #c5cce8;
+      line-height: 1.8;
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 28px 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--muted);
+      font-size: 0.83rem;
+    }
+
+    footer a {
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    footer a:hover { color: var(--text); }
+
+    .footer-links { display: flex; gap: 24px; }
+
+    @media (max-width: 640px) {
+      nav { padding: 16px 20px; }
+      .nav-links { display: none; }
+      .hero { padding: 48px 20px 32px; }
+      .content { padding: 0 20px 60px; }
+      footer { padding: 24px 20px; flex-direction: column; gap: 12px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="#" class="logo">
+      <!-- MyDeviceTracker App Icon SVG - reconstructed from SwiftUI -->
+      <svg class="logo-icon" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="bgG" x1="0" y1="0" x2="72" y2="72" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#4A9FF5"/>
+            <stop offset="100%" stop-color="#1A5FD4"/>
+          </linearGradient>
+        </defs>
+        <rect width="72" height="72" rx="16" fill="url(#bgG)"/>
+        <!-- Outer arc -->
+        <path d="M18 46 A20 20 0 0 1 54 46" stroke="white" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+        <!-- Middle arc -->
+        <path d="M23 46 A14 14 0 0 1 49 46" stroke="white" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+        <!-- Inner arc -->
+        <path d="M28.5 46 A8 8 0 0 1 43.5 46" stroke="white" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+        <!-- Center dot -->
+        <circle cx="36" cy="46" r="4.5" fill="white"/>
+      </svg>
+      MyDeviceTracker
+    </a>
+    <ul class="nav-links">
+      <li><a href="support.html">Support</a></li>
+    </ul>
+  </nav>
+
+  <div class="hero">
+    <h1>Legal.</h1>
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchTab('terms')">Terms of use</button>
+      <button class="tab-btn" onclick="switchTab('privacy')">Privacy policy</button>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- TERMS OF USE -->
+    <div id="terms" class="tab-content active">
+
+      <div class="intro-block">
+        <p>The MyDeviceTracker app (hereinafter: 'app' or 'App') is created and published by MyDeviceTracker (hereinafter: 'MyDeviceTracker', 'we', 'us' or 'our'). By downloading or using the App, you agree to be bound by these Terms of Use. Please read them carefully before using the App.</p>
+      </div>
+
+      <div class="section">
+        <h2>1. Acceptance of Terms</h2>
+        <p>By accessing or using MyDeviceTracker, you confirm that you are at least 13 years of age and agree to comply with and be bound by these Terms of Use. If you do not agree to these terms, please do not use the App.</p>
+      </div>
+
+      <div class="section">
+        <h2>2. License to Use</h2>
+        <p>MyDeviceTracker grants you a limited, non-exclusive, non-transferable, revocable license to use the App for your personal, non-commercial purposes. You may not copy, modify, distribute, sell, or lease any part of the App or its content.</p>
+      </div>
+
+      <div class="section">
+        <h2>3. Permitted Use</h2>
+        <p>You agree to use the App only for lawful purposes and in a manner that does not infringe the rights of others. You must not misuse the App by knowingly introducing viruses or other harmful material, or attempt to gain unauthorized access to any part of the App or its related systems.</p>
+      </div>
+
+      <div class="section">
+        <h2>4. Intellectual Property</h2>
+        <p>All content, features, and functionality of the App — including but not limited to text, graphics, logos, and software — are owned by MyDeviceTracker and are protected by applicable intellectual property laws. You may not reproduce or redistribute any part of the App without prior written permission.</p>
+      </div>
+
+      <div class="section">
+        <h2>5. Disclaimer of Warranties</h2>
+        <p>The App is provided on an "as is" and "as available" basis without warranties of any kind. MyDeviceTracker does not warrant that the App will be uninterrupted, error-free, or free of viruses or other harmful components. Your use of the App is at your sole risk.</p>
+      </div>
+
+      <div class="section">
+        <h2>6. Limitation of Liability</h2>
+        <p>To the fullest extent permitted by law, MyDeviceTracker shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising from your use of, or inability to use, the App.</p>
+      </div>
+
+      <div class="section">
+        <h2>7. Changes to Terms</h2>
+        <p>We reserve the right to modify these Terms of Use at any time. Changes will be posted within the App or on our website. Your continued use of the App after any modifications constitutes your acceptance of the updated terms. These Terms were last updated on March 2025.</p>
+      </div>
+
+      <div class="section">
+        <h2>8. Contact</h2>
+        <p>If you have any questions about these Terms of Use, please contact us at <a href="/cdn-cgi/l/email-protection#95e6e0e5e5fae7e1d5f8ecf1f0e3fcf6f0e1e7f4f6fef0e7bbf6faf8" style="color: var(--accent); text-decoration: none;"><span class="__cf_email__" data-cfemail="9deee8ededf2efe9ddf0e4f9f8ebf4fef8e9effcfef6f8efb3fef2f0">[email&#160;protected]</span></a></p>
+      </div>
+
+    </div>
+
+    <!-- PRIVACY POLICY -->
+    <div id="privacy" class="tab-content">
+
+      <div class="intro-block">
+        <p>The MyDeviceTracker app (hereinafter: 'app', 'App') is created by MyDeviceTracker (hereinafter: 'MyDeviceTracker', 'we', 'us' or 'our'). This Privacy Policy is compliant with the General Data Protection Regulation (GDPR 2016/679). By using the App, you are consenting to our processing of data as set forth in this Privacy Policy.</p>
+      </div>
+
+      <div class="section">
+        <h2>1. What data do our Apps obtain?</h2>
+        <p>1.1 We collect data about you and the way the App is used in various ways.</p>
+        <p><strong style="color:#c5cce8;">a. Automatically Collected Data</strong> – The App collects certain data automatically, such as: the type of device you use, device identifiers (including the resettable advertising identifier assigned to your device), the IP address of your device, geographical data such as the location of your device, your operating system, Wi-Fi mac address in your area, the type of internet browsers you use, data connection status, and data about the way you use the App. If you activated 'Location' in your device settings, the App will collect precise location data. We may also collect location data using network triangulation, GPS and Wi-Fi IP address.</p>
+        <p><strong style="color:#c5cce8;">b. User Provided Data</strong> – The App obtains the data you provide when you download and use the App. We may ask that you provide: (a) your name, email address, age, username, password and other registration data; (b) transaction-related data, such as when you make purchases or respond to any offers; (c) data you provide when you contact us for help; and (d) data you enter into our system while using the App. We may also get data from other sources and combine it with data collected about you.</p>
+      </div>
+
+      <div class="section">
+        <h2>2. Data Sharing and Advertising</h2>
+        <p>2.1 To the extent feasible, we only use your data in an anonymized, hashed or obfuscated way. We only use personally identifiable information to the extent required to provide our services.</p>
+        <p>2.2 We may share your data with third parties: (a) as required by law or to comply with legal process; (b) when we believe disclosure is necessary to protect our rights or the safety of others; (c) with trusted service providers who work on our behalf under strict confidentiality obligations; and (d) with third-party advertising networks and analytics companies.</p>
+        <p>2.3 We may use and share data in an anonymized, hashed or obfuscated way for advertising purposes. We do not pass personally identifiable data to ad networks or advertisers.</p>
+        <p>2.4 We may work with analytics companies to help us understand how the App is being used, such as the frequency and duration of usage.</p>
+        <p>2.5 The paid versions of our App generally do not contain advertising and will not use your data for this purpose.</p>
+      </div>
+
+      <div class="section">
+        <h2>3. Managing Your Data</h2>
+        <p>3.1 You can stop all collection of data by uninstalling the App using the standard uninstall processes available on your device or via the application marketplace.</p>
+        <p>3.2 You may opt-out from allowing the App to access your precise location data at any time by deactivating 'Location' in the privacy settings on your device.</p>
+        <p>3.3 Most modern devices provide advertising identifiers (IDFA on iOS, GAID on Android). You can view and control how your advertising identifier is used in your device settings, including options to change your identifier and opt out of cross-app advertising.</p>
+        <p>3.4 The NAI and the Digital Advertising Alliance (DAA) offer opt-out tools. For more information please visit: <a href="http://networkadvertising.org/choices/" style="color:var(--accent);text-decoration:none;">networkadvertising.org/choices</a> or <a href="https://aboutads.info" style="color:var(--accent);text-decoration:none;">aboutads.info</a></p>
+      </div>
+
+      <div class="section">
+        <h2>4. Business Transfers</h2>
+        <p>4.1 Data about you may be disclosed as part of any merger, acquisition, or sale of company assets. In the unlikely event of an insolvency, bankruptcy or receivership, your data may also be transferred as a business asset.</p>
+      </div>
+
+      <div class="section">
+        <h2>5. Children</h2>
+        <p>5.1 We do not use the App to knowingly solicit data from or market to children under the age of 13. If a parent or guardian becomes aware that their child has provided us with data without their consent, please contact us at <a href="/cdn-cgi/l/email-protection#4635333636293432062b3f2223302f2523323427252d23346825292b" style="color:var(--accent);text-decoration:none;"><span class="__cf_email__" data-cfemail="73000603031c0107331e0a1716051a1016070112101816015d101c1e">[email&#160;protected]</span></a>. We will delete or anonymize such data from our files within a reasonable time.</p>
+      </div>
+
+      <div class="section">
+        <h2>6. Security</h2>
+        <p>6.1 We are concerned about safeguarding the confidentiality of your personal data. We provide physical, electronic and procedural safeguards to protect data we process and maintain. We limit access to this data to authorized employees and contractors who need to know that data in order to operate, develop or improve our App. Please be aware that no security system can prevent all potential security breaches.</p>
+      </div>
+
+      <div class="section">
+        <h2>7. Data Retention Policy</h2>
+        <p>7.1 We will retain User Provided Data for as long as you use the App and for a reasonable time thereafter. We will retain Automatically Collected data for up to 12 months and thereafter may store it in aggregate. If you'd like us to delete your User Provided Data, please contact us at <a href="/cdn-cgi/l/email-protection#3645434646594442765b4f5253405f5553424457555d53441855595b" style="color:var(--accent);text-decoration:none;"><span class="__cf_email__" data-cfemail="80f3f5f0f0eff2f4c0edf9e4e5f6e9e3e5f4f2e1e3ebe5f2aee3efed">[email&#160;protected]</span></a> and we will respond in a reasonable time.</p>
+      </div>
+
+      <div class="section">
+        <h2>8. Changes</h2>
+        <p>8.1 This Privacy Policy may be updated from time to time. We will notify you of any changes by posting the new Privacy Policy within the App. You are advised to consult this Privacy Policy regularly for any changes. If you have any questions, please contact us at <a href="/cdn-cgi/l/email-protection#3c4f494c4c534e487c514558594a555f59484e5d5f57594e125f5351" style="color:var(--accent);text-decoration:none;"><span class="__cf_email__" data-cfemail="bdcec8cdcdd2cfc9fdd0c4d9d8cbd4ded8c9cfdcded6d8cf93ded2d0">[email&#160;protected]</span></a></p>
+        <p>This Privacy Policy was last updated on March 2025.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>
+    <span>© 2025 MyDeviceTracker</span>
+    <div class="footer-links">
+            <a href="#" onclick="switchTab('privacy'); return false;">Privacy</a>
+      <a href="#" onclick="switchTab('terms'); return false;">Terms</a>
+      <a href="support.html">Support</a>
+    </div>
+  </footer>
+
+  <script>
+    function switchTab(tab) {
+      document.querySelectorAll('.tab-btn').forEach((btn, i) => {
+        btn.classList.toggle('active', (i === 0 && tab === 'terms') || (i === 1 && tab === 'privacy'));
+      });
+      document.querySelectorAll('.tab-content').forEach(el => {
+        el.classList.toggle('active', el.id === tab);
+      });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  </script>
+</body>
+</html>
